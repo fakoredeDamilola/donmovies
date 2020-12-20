@@ -1,209 +1,149 @@
-import Head from 'next/head'
+import Layout from "../components/Layout"
+import Footer from "../components/Footer"
+import MovieContainer from "../components/MovieContainer"
+import PreMovieLoader from "../components/PreMovieLoader"
+import utils from "../utils/utils.module.css"
+import { getAllMovieData } from "../api/getData"
+import { useState } from 'react'
+import Link from 'next/link'
+const Index = ({
+  mostPopular,
+  upcoming,
+  trendingMovie,
+  trendingTV
+}) => {
+  const [mostPopularData, setMostPopularData] = useState(mostPopular)
+  const [upcomingData, setUpcomingData] = useState(upcoming)
+  const [trendingMovieData, setTrendingMovieData] = useState(trendingMovie)
+  const [trendingTVData, setTrendingTVData] = useState(trendingTV)
+  let random = Math.round(Math.random() * 20)
+  let url = trendingTVData[random].backdrop_path
+  let url2 = mostPopularData[random].backdrop_path
 
-export default function Home() {
+  // change media window
+  const changeValue = async (e) => {
+    let children = e.target.parentElement.children
+    Array.from(children).forEach(child => child.classList.remove(utils.active))
+    e.target.className = utils.active
+    let value = e.target.innerHTML
+    let id = e.target.dataset.id
+
+    let result = await fetch(`https://api.themoviedb.org/3/trending/${id}/${value}?api_key=a6274c5c4a9c16954e5a86efccdd0bef`)
+    let res = await result.json()
+    let data = res.results
+
+    if (id === "movie") {
+
+      setTrendingMovieData(data)
+    } else if (id === "tv") {
+      setTrendingTVData(data)
+    }
+
+  }
+
+
+
   return (
-    <div className="container">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+    <Layout>
+      <div className={utils.indexContainer} style={{ backgroundImage: `linear-gradient( to right, rgba(3, 37, 65, 0.8) 0%, rgba(3, 37, 65, 0.5) 100%),url(https://image.tmdb.org/t/p/w500/${url})` }}>
+        <h1>
+          Welcome.
         </h1>
-
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <h3 className="my-4">
+          Millions of movies, TV shows and people to discover. Explore now.
+        </h3>
+        <div className={`${utils.indexInput} mt-5`}>
+          <input type="text" />
+          <button>Search</button>
         </div>
-      </main>
+      </div>
 
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
+      <div className={`${utils.indexMoviesContainer} container`}>
+        <div className="pt-5">
+          <h3 className={`${utils.textHeading} mb-2 ml-3`}><Link href={`/category/popular`}><a>What's Popular</a></Link></h3>
+          <div className={utils.indexMoviesSection}>
+            {!mostPopular || mostPopular.length === 0 ?
+              <div>
+                <PreMovieLoader />
+              </div> :
+              <MovieContainer array={mostPopularData} />
+            }
+          </div>
+        </div>
 
-      <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
+        <div className="pt-5 text-white" style={{
+          backgroundImage: `linear-gradient( to right, rgba(3, 37, 65, 0.8) 0%, rgba(3, 37, 65, 0.5) 100%),url(https://image.tmdb.org/t/p/w500/${url2})`
+        }}>
+          <h3 className={`${utils.textHeading} mb-2 ml-3 `}><Link href={`/category/upcoming`}><a className="text-white">Upcoming</a></Link></h3>
+          <div className={utils.indexMoviesSection}>
+            {!upcoming || upcoming.length === 0 ?
+              <div>
+                <PreMovieLoader />
+              </div> :
+              <MovieContainer array={upcomingData} />
+            }
+          </div>
+        </div>
+        <div className="pt-5">
+          <h3 className={`${utils.textHeading} mb-2 ml-3`}>Trending Movie</h3>
+          <div className={utils.buttonGroup} onClick={changeValue} >
+            <button className={utils.active} data-id="movie">day</button>
+            <button data-id="movie">week</button>
+          </div>
 
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
+          <div className={utils.indexMoviesSection}>
+            {!trendingMovie || trendingMovie.length === 0 ?
+              <div>
+                <PreMovieLoader />
+              </div> :
+              <MovieContainer array={trendingMovieData} />
+            }
+          </div>
+        </div>
+        <div className="pt-5">
+          <h3 className={`${utils.textHeading} mb-2 ml-3`}>Trending TV</h3>
+          <div className={utils.buttonGroup} onClick={changeValue} >
+            <button className={utils.active} data-id="tv">day</button>
+            <button data-id="tv">week</button>
+          </div>
+          <div className={utils.indexMoviesSection}>
+            {!trendingTV || trendingTV.length === 0 ?
+              <div>
+                <PreMovieLoader />
+              </div> :
 
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
+              <MovieContainer array={trendingTVData} />
 
-        footer img {
-          margin-left: 0.5rem;
-        }
+            }
+          </div>
+        </div>
 
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
 
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
 
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
 
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
+      </div>
 
-        .title {
-          margin: 0;
-          line-height: 1.15;
-          font-size: 4rem;
-        }
+      <Footer />
 
-        .title,
-        .description {
-          text-align: center;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-        }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        .card {
-          margin: 1rem;
-          flex-basis: 45%;
-          padding: 1.5rem;
-          text-align: left;
-          color: inherit;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .card:hover,
-        .card:focus,
-        .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
-        }
-
-        .card h3 {
-          margin: 0 0 1rem 0;
-          font-size: 1.5rem;
-        }
-
-        .card p {
-          margin: 0;
-          font-size: 1.25rem;
-          line-height: 1.5;
-        }
-
-        .logo {
-          height: 1em;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </div>
+    </Layout >
   )
+
+
 }
+export const getStaticProps = async function () {
+  const { mostPopular, upcoming, trendingMovie, trendingTV } = await getAllMovieData()
+  return {
+    props: {
+      mostPopular,
+      upcoming,
+      trendingMovie,
+      trendingTV
+    }
+
+  }
+
+
+}
+
+
+export default Index

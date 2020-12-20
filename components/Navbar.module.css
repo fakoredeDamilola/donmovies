@@ -1,0 +1,160 @@
+.header {
+  position: fixed;
+  width: 100%;
+  opacity: 1;
+  z-index: 999;
+}
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 10px;
+  background: white;
+  box-shadow: 0 0 10px #ccc;
+}
+.logo {
+  margin-top: -9px;
+}
+.logo-img {
+  width: 100px;
+}
+.logo a {
+  text-decoration: none;
+  color: black;
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.menuToggle {
+  cursor: pointer;
+}
+.barsText {
+  box-sizing: border-box;
+}
+.bars {
+  width: 35px;
+  margin: 5px 0px;
+  height: 2px;
+  max-height: 2px;
+  border-radius: 4px;
+  background-color: rgb(66, 66, 66);
+}
+.bars:nth-child(2) {
+  width: 20px;
+}
+
+.header nav ul {
+  background: #272727;
+  color: #ededed;
+  position: fixed;
+  height: auto;
+
+  right: 100%;
+  border-top: 0;
+  transition: 0.5s;
+  list-style: none;
+  margin-top: -72px;
+  width: 100%;
+  height: 100%;
+}
+.header nav ul.active {
+  right: 0;
+}
+.header nav ul li {
+  text-align: left;
+  padding: 30px 0;
+}
+.header nav ul li:not(:first-child) {
+  cursor: pointer;
+}
+.header nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.closeMenu {
+  width: 93%;
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
+.closeMenu2 {
+  display: none;
+}
+.closeMenu div {
+  cursor: pointer;
+}
+
+.animation {
+  width: 0%;
+
+  margin-top: 5px;
+  background: white;
+  transition: 0.5s all;
+  height: 2px;
+  max-height: 2px;
+}
+.header nav ul li:hover a {
+  color: #777;
+}
+.header nav ul li:hover .animation,
+.header nav ul li.actived .animation {
+  background: #777;
+  width: 50px;
+}
+
+@media (min-width: 1300px) {
+  .header nav ul li {
+    padding-left: 10px;
+  }
+  .header-buttons {
+    display: none;
+  }
+  .item-img {
+    display: none;
+  }
+  .headerTop {
+    padding: 10px 40px;
+  }
+  .closeMenu {
+    display: none;
+  }
+  .closeMenu2 {
+    display: block;
+  }
+  .header nav ul li a {
+    color: black;
+  }
+  .header nav ul {
+    height: auto;
+    padding: 0px 10px;
+    position: static;
+    margin-top: -52px;
+    display: flex;
+    float: right;
+    width: auto;
+    text-align: right;
+    background: transparent;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  /* s */
+  .header nav ul li {
+    padding: 0 10px;
+  }
+  .header nav ul li a {
+    color: black;
+  }
+  .menuToggle {
+    display: none;
+  }
+  .logo {
+    font-size: 45px;
+    margin-top: -20px;
+  }
+  .header nav ul li:hover .animation,
+  .header nav ul li.actived .animation {
+    width: 40px;
+    background: black;
+  }
+}

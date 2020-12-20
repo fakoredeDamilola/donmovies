@@ -1,0 +1,43 @@
+body html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Mulish", sans-serif;
+  line-height: 1.6;
+  font-size: 18px;
+  background: var(--background);
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+h1 {
+  font-weight: 900;
+}
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(197, 197, 197);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(25, 45, 61, 0.8);
+  border-radius: 10px;
+  transition: 0.3s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(25, 45, 61);
+}

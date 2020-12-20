@@ -1,0 +1,335 @@
+.wrapper {
+  padding-top: 70px;
+}
+/* index page */
+.textHeading,
+.textHeading a {
+  color: rgb(25, 45, 61);
+}
+.textHeading a:hover {
+  color: rgba(25, 45, 61, 0.8) !important;
+  text-decoration: none;
+}
+.indexContainer {
+  width: 90%;
+  margin: 0 auto;
+  height: 360px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 40px;
+  color: white;
+}
+.indexInput {
+  width: 100%;
+  position: relative;
+}
+.indexInput input {
+  border-radius: 20px;
+  width: 100%;
+  height: 40px;
+  border: 0;
+  padding-left: 20px;
+}
+.indexContainer button {
+  outline: none;
+  height: 40px;
+  position: absolute;
+  right: 0;
+  border: 0;
+  border-radius: 20px;
+  padding: 0 25px;
+  background: linear-gradient(
+    to right,
+    rgba(30, 213, 169, 1) 0%,
+    rgba(1, 180, 228, 1) 100%
+  );
+  color: white;
+}
+.indexContainer button:hover {
+  color: black;
+}
+.indexMoviesSection > div,
+.indexPreMovieLoader {
+  overflow-x: scroll;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 20px;
+}
+.indexMoviesSection > div > div {
+  margin: 0 30px;
+}
+.categoryMovieSection > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  width: 90%;
+  margin: 0 auto;
+}
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+}
+.buttonWrapper button {
+  margin: 0 10px;
+  padding: 7px 20px;
+  background: rgba(25, 45, 61, 0.8);
+  color: white;
+  border-radius: 10px;
+  transition: 0.3s;
+  border: 0;
+}
+.buttonWrapper button:hover {
+  background: rgb(25, 45, 61);
+}
+/* movies */
+.movieGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 350px));
+  grid-gap: 30px;
+}
+.movieContainer,
+.loaderMovieContainer {
+  width: 200px;
+  min-width: 260px;
+  border-radius: 5px;
+  margin: 30px;
+  cursor: pointer;
+}
+.movieImage {
+  width: 100%;
+  overflow: hidden;
+}
+.loaderMovieImage {
+  width: 100%;
+  height: 390px;
+  animation: glitchImage 3s ease-in infinite;
+}
+.movieImage img,
+.loaderMovieImage img {
+  width: 100%;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+.movieImage img:hover,
+.loaderMovieImage img:hover {
+  transform: scale(1.1);
+  border-radius: 20px;
+}
+.movieInfo {
+  padding: 7px;
+  position: relative;
+}
+
+.movieInfo div:nth-child(1) {
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.movieInfo div:nth-child(2) {
+  font-size: 18px;
+  color: rgb(163, 152, 152);
+}
+.loaderMovieInfo {
+  padding: 7px;
+}
+.loaderMovieInfo div {
+  background: rgb(163, 152, 152);
+  width: 0%;
+  height: 30px;
+  border-radius: 10px;
+  margin: 8px 0;
+}
+.loaderMovieInfo div:last-child {
+  width: 0%;
+}
+
+/* scrollbar */
+
+@keyframes glitchImage {
+  from {
+    background: linear-gradient(
+      to bottom right,
+      rgb(81, 81, 82),
+      rgb(36, 35, 35)
+    );
+  }
+  to {
+    background: linear-gradient(to top left, rgb(36, 35, 35), rgb(43, 43, 44));
+  }
+}
+/* single image */
+.singleMovieContainer {
+  width: 90%;
+  margin: 0 auto;
+}
+.singleMovieWrapper {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.singleMovieImage {
+  width: 80%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.singleMovieImage img {
+  width: 100%;
+  border-radius: 15px;
+  transition: all 0.3s;
+}
+.singleMovieImage img:hover {
+  transform: scale(1.1);
+  border-radius: 15px;
+}
+.singleMovieInfo {
+  margin-top: 30px;
+  color: white;
+}
+.singleMovieInfo h2 a {
+  color: white;
+  transition: 0.3s;
+}
+.singleMovieInfo h2 a:hover {
+  color: #777;
+  text-decoration: none;
+}
+.addToCollection {
+  display: flex;
+}
+.singleMovieAdditionInfo {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+.singleMovieAdditionInfo div {
+  margin: 20px 0;
+  width: 300px;
+}
+.singleMovieAdditionInfo span {
+  margin-left: 20px;
+  padding: 10px 20px;
+  background-color: rgba(5, 60, 105, 0.5);
+  border-radius: 10px;
+}
+.addToCollection div {
+  margin: 0 15px;
+  width: 40px;
+  height: 40px;
+  background: rgb(5, 60, 105);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.singleMovieTagLine {
+  color: rgb(153, 150, 150);
+  margin-top: 20px;
+}
+.singleMovieNav {
+  background: white;
+  display: flex;
+  justify-content: center;
+}
+.singleMovieNav div {
+  padding: 15px;
+  cursor: pointer;
+}
+.singleMovieNavbarSelected {
+  border-bottom: 2px solid rgb(5, 60, 105);
+}
+
+/* videos */
+.movieVideoContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+/* footer */
+.pageFooter {
+  background: rgb(36, 35, 35);
+}
+.pageFooter a {
+  color: white;
+  transition: 0.3s;
+}
+.pageFooter a:hover {
+  color: rgb(163, 152, 152);
+}
+
+/* authentication button */
+.buttonIcon {
+  background: rgba(25, 45, 61, 0.8);
+  color: white;
+}
+.buttonIcon:hover {
+  background: rgba(25, 45, 61, 0.5);
+}
+
+/* dashboard */
+.dashboardImage {
+  display: flex;
+  justify-content: center;
+}
+.dashboardbg {
+  background-color: rgba(5, 60, 105, 0.8);
+  color: white;
+  text-align: center;
+}
+.dashboardImage div {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgba(25, 45, 61, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+
+/* media queries */
+@media (max-width: 500px) {
+  .singleMovieAdditionInfo div {
+    width: 100%;
+  }
+  .categoryMovieSection > div > div {
+    margin: 20px auto;
+    width: 90%;
+    min-width: 90%;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+@media (max-width: 700px) {
+  .movieGrid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  /* index page */
+  .indexContainer {
+    width: 100%;
+  }
+}
+
+/* button */
+.buttonGroup {
+  margin: 20px;
+  display: flex;
+}
+.buttonGroup button {
+  outline: none;
+  border: 0;
+  padding: 5px 30px;
+  border-radius: 20px;
+  margin: 0 4px;
+  border: 1px solid rgba(30, 213, 169, 1);
+  background: transparent;
+}
+.buttonGroup button.active {
+  background: linear-gradient(
+    to right,
+    rgba(192, 254, 207, 1) 0%,
+    rgba(30, 213, 169, 1) 100%
+  );
+}
