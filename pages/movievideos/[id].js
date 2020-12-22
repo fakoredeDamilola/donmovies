@@ -13,7 +13,7 @@ export async function getStaticProps({ params }) {
     let res = await data.json()
     return {
         props: {
-            video: res.results,
+            video: res.results || [],
             params: params.id
         }
     }

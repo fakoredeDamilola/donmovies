@@ -45,16 +45,12 @@ const custom404 = ({ mostPopular }) => {
 }
 export const getStaticProps = async function () {
     // const { mostPopular } = await getAllMovieData()
-    const [mostPopular, upcoming, trendingMovie, trendingTV] = await Promise.all([
-        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=1`).then(res => res.json()),
-        fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=1`).then(res => res.json()),
-        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=a6274c5c4a9c16954e5a86efccdd0bef`).then(res => res.json()),
-        fetch(`https://api.themoviedb.org/3/trending/tv/day?api_key=a6274c5c4a9c16954e5a86efccdd0bef`).then(res => res.json()),
+    const mostPopular =
+        await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=1`).then(res => res.json())
 
-    ])
     return {
         props: {
-            mostPopular,
+            mostPopular: mostPopular.results,
         }
 
     }

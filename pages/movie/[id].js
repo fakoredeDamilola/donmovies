@@ -12,18 +12,18 @@ export async function getStaticProps({ params }) {
     let data = await fetch(`https://api.themoviedb.org/3/movie/${params.id}?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US`)
 
     let res = await data.json()
-    let movieResult = res
+    let movieResult = res || []
 
     // let recommendation = await getMovieRecommendation(params.id)
     let dataRecommendation = await fetch(`https://api.themoviedb.org/3/movie/${params.id}/recommendations?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=1`)
     let resRecommendation = await dataRecommendation.json()
-    let recommendation = resRecommendation.results
+    let recommendation = resRecommendation.results || []
 
     // let credits = await getMovieCredit(params.id)
     let dataCast = await fetch(`https://api.themoviedb.org/3/movie/${params.id}/credits?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US`)
 
     let resCast = await dataCast.json()
-    let credits = resCast.cast
+    let credits = resCast.cast || []
     return {
         props: {
             movie: movieResult,
