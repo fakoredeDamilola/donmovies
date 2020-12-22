@@ -93,12 +93,12 @@ const MovieData = ({ movie, recommendation, credits, params }) => {
                         <div className="col-lg-8">
                             <div className={utils.singleMovieInfo}>
                                 <h2><a href={`${movieData.homepage}`} target="_blank">{movieData.title}</a></h2>
-                                <p>{movieData.genres.map(genre => {
+                                <p>{movieData.genres ? movieData.genres.map(genre => {
                                     return (
                                         <span key={genre.id}>{genre.name}, </span>
                                     )
                                 }
-                                )}</p>
+                                ) : null}</p>
                             </div>
 
                             <div className={utils.singleMovieTagLine}>
