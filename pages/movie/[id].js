@@ -4,7 +4,7 @@ import MovieNavHeader from "../../components/MovieNavHeader"
 import utils from "../../utils/utils.module.css"
 import MovieContainer from "../../components/MovieContainer"
 import Footer from "../../components/Footer"
-
+import PreMovieLoader from "../../components/PreMovieLoader"
 import { useAuth } from "../../hooks/useAuth"
 import { useState } from "react"
 export async function getStaticProps({ params }) {
@@ -77,7 +77,6 @@ export async function getStaticPaths() {
 const MovieData = ({ movie, recommendation, credits, params }) => {
     let auth = useAuth()
     let [movieData, setMovie] = useState(movie)
-    console.log(recommendation)
     return (
         <Layout>
 

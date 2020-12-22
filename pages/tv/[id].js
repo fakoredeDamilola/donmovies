@@ -10,7 +10,6 @@ export async function getStaticProps({ params }) {
     let dataTV = await fetch(`https://api.themoviedb.org/3/tv/${params.id}?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US`)
 
     let movieResult = await dataTV.json()
-    console.log(movieResult.last_episode_to_air)
     // let movieResult = movie.res
     // let recommendation = await getTVRecommendation(params.id)
     let dataRecommendation = await fetch(`https://api.themoviedb.org/3/tv/${params.id}/recommendations?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=1`)
@@ -50,7 +49,7 @@ export async function getStaticPaths() {
     }
 }
 const TVData = ({ movie, recommendation, credits, params }) => {
-    console.log(movie)
+
     return (
         <Layout>
             <div>
