@@ -25,7 +25,7 @@ const custom404 = ({ mostPopular }) => {
             <div className="container">
 
                 <div className="pt-5">
-                    <h4 className={`${utils.textHeading} mb-2 ml-3`}><Link href={`/category/popular`}><a>What's Popular</a></Link></h4>
+                    <h4 className={`${utils.textHeading} mb-2 ml-3`}><Link href={`/category/popular`} ><a>What's Popular</a></Link></h4>
                     <div className={utils.indexMoviesSection}>
                         {!mostPopular || mostPopular.length === 0 ?
                             <div>
@@ -44,7 +44,14 @@ const custom404 = ({ mostPopular }) => {
     )
 }
 export const getStaticProps = async function () {
-    const { mostPopular } = await getAllMovieData()
+    // const { mostPopular } = await getAllMovieData()
+    const [mostPopular, upcoming, trendingMovie, trendingTV] = await Promise.all([
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=1`).then(res => res.json()),
+        fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=1`).then(res => res.json()),
+        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=a6274c5c4a9c16954e5a86efccdd0bef`).then(res => res.json()),
+        fetch(`https://api.themoviedb.org/3/trending/tv/day?api_key=a6274c5c4a9c16954e5a86efccdd0bef`).then(res => res.json()),
+
+    ])
     return {
         props: {
             mostPopular,

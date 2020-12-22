@@ -1,4 +1,4 @@
-import { getMoviesID, getMovie, getMovieRecommendation, getMovieCredit } from "../../api/getData"
+// import { getMoviesID, getMovie, getMovieRecommendation, getMovieCredit } from "../../api/getData"
 import Layout from "../../components/Layout"
 import MovieNavHeader from "../../components/MovieNavHeader"
 import utils from "../../utils/utils.module.css"
@@ -8,10 +8,22 @@ import Footer from "../../components/Footer"
 import { useAuth } from "../../hooks/useAuth"
 import { useState } from "react"
 export async function getStaticProps({ params }) {
-    let movie = await getMovie(params.id)
-    let movieResult = movie.res
-    let recommendation = await getMovieRecommendation(params.id)
-    let credits = await getMovieCredit(params.id)
+    // let movie = await getMovie(params.id)
+    let data = await fetch(`https://api.themoviedb.org/3/movie/${params.id}?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US`)
+
+    let res = await data.json()
+    let movieResult = res
+
+    // let recommendation = await getMovieRecommendation(params.id)
+    let dataRecommendation = await fetch(`https://api.themoviedb.org/3/movie/${params.id}/recommendations?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=1`)
+    let resRecommendation = await dataRecommendation.json()
+    let recommendation = resRecommendation.results
+
+    // let credits = await getMovieCredit(params.id)
+    let dataCast = await fetch(`https://api.themoviedb.org/3/movie/${params.id}/credits?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US`)
+
+    let resCast = await dataCast.json()
+    let credits = resCast.cast
     return {
         props: {
             movie: movieResult,
@@ -23,7 +35,39 @@ export async function getStaticProps({ params }) {
 }
 export async function getStaticPaths() {
 
-    const paths = await getMoviesID()
+    // const paths = await getMoviesID()
+    const [mostPopular, upcoming, trendingMovie] = await Promise.all([
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=1`).then(res => res.json()),
+        fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=1`).then(res => res.json()),
+        fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=a6274c5c4a9c16954e5a86efccdd0bef`).then(res => res.json()),
+
+    ])
+    const [mostPopular2, upcoming2] = await Promise.all([
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=2`).then(res => res.json()),
+        fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=2`).then(res => res.json()),
+
+    ])
+    const [mostPopular3, upcoming3] = await Promise.all([
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=3`).then(res => res.json()),
+        fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=3`).then(res => res.json()),
+
+    ])
+    const totalArray = [
+        ...mostPopular.results,
+        ...upcoming.results,
+        ...trendingMovie.results,
+        ...mostPopular2.results,
+        ...mostPopular3.results,
+        ...upcoming2.results,
+        ...upcoming3.results
+    ]
+    let paths = totalArray.map(movie => {
+        return {
+            params: {
+                id: `${movie.id}`
+            }
+        }
+    })
     return {
         paths,
         fallback: false
@@ -33,7 +77,7 @@ export async function getStaticPaths() {
 const MovieData = ({ movie, recommendation, credits, params }) => {
     let auth = useAuth()
     let [movieData, setMovie] = useState(movie)
-
+    console.log(recommendation)
     return (
         <Layout>
 
@@ -87,7 +131,7 @@ const MovieData = ({ movie, recommendation, credits, params }) => {
                             <div>
                                 <PreMovieLoader />
                             </div> :
-                            <MovieContainer array={credits.result} />
+                            <MovieContainer array={credits} />
                         }
                     </div>
                     <hr />
@@ -97,7 +141,7 @@ const MovieData = ({ movie, recommendation, credits, params }) => {
                             <div>
                                 <PreMovieLoader />
                             </div> :
-                            <MovieContainer array={recommendation.result} />
+                            <MovieContainer array={recommendation} />
                         }
                     </div>
 

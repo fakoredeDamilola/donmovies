@@ -1,6 +1,7 @@
 import Movie from "../components/Movie"
 
 const MovieContainer = ({ array, page }) => {
+
     return (
         <div>
 

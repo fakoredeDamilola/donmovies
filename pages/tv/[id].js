@@ -1,4 +1,4 @@
-import { getTVsID, getTV, getTVRecommendation, getTVCredit } from "../../api/getData"
+// import { getTVsID, getTV, getTVRecommendation, getTVCredit } from "../../api/getData"
 import Layout from "../../components/Layout"
 import utils from "../../utils/utils.module.css"
 import MovieContainer from "../../components/MovieContainer"
@@ -6,10 +6,22 @@ import MovieNavHeader from "../../components/MovieNavHeader"
 import PreMovieLoader from "../../components/PreMovieLoader"
 import Footer from "../../components/Footer"
 export async function getStaticProps({ params }) {
-    let movie = await getTV(params.id)
-    let movieResult = movie.res
-    let recommendation = await getTVRecommendation(params.id)
-    let credits = await getTVCredit(params.id)
+    // let movie = await getTV(params.id)
+    let dataTV = await fetch(`https://api.themoviedb.org/3/tv/${params.id}?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US`)
+
+    let movieResult = await dataTV.json()
+    console.log(movieResult.last_episode_to_air)
+    // let movieResult = movie.res
+    // let recommendation = await getTVRecommendation(params.id)
+    let dataRecommendation = await fetch(`https://api.themoviedb.org/3/tv/${params.id}/recommendations?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=1`)
+    let resRecommendation = await dataRecommendation.json()
+    let recommendation = resRecommendation.results
+
+    // let credits = await getTVCredit(params.id)
+    let dataCredit = await fetch(`https://api.themoviedb.org/3/tv/${params.id}/credits?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US`)
+
+    let resCredit = await dataCredit.json()
+    let credits = resCredit.cast
     return {
         props: {
             movie: movieResult,
@@ -21,13 +33,24 @@ export async function getStaticProps({ params }) {
 }
 export async function getStaticPaths() {
 
-    const paths = await getTVsID()
+    // const paths = await getTVsID()
+    const trendingTV = await fetch(`https://api.themoviedb.org/3/trending/tv/day?api_key=a6274c5c4a9c16954e5a86efccdd0bef`).then(res => res.json())
+
+    const totalArray = [...trendingTV.results]
+    let paths = totalArray.map(tv => {
+        return {
+            params: {
+                id: `${tv.id}`
+            }
+        }
+    })
     return {
         paths,
         fallback: false
     }
 }
 const TVData = ({ movie, recommendation, credits, params }) => {
+    console.log(movie)
     return (
         <Layout>
             <div>
@@ -66,6 +89,23 @@ const TVData = ({ movie, recommendation, credits, params }) => {
                                     <div>First air date : <span>{movie.first_air_date}</span></div>
 
                                 </div>
+                                {movie.next_episode_to_air ?
+                                    <div>
+                                        <h3 className="my-3">Next epsiode to air</h3>
+                                        <div className={utils.singleMovieAdditionInfo}>
+
+                                            <div>air date : <span>{movie.next_episode_to_air.air_date}</span></div>
+                                            <div>Episode number : <span>{movie.next_episode_to_air.episode_number}</span></div>
+                                            <div>Season number : <span>{movie.next_episode_to_air.season_number}</span></div>
+                                            <div>name : <span>{movie.next_episode_to_air.name}</span></div>
+
+                                        </div>
+
+                                    </div>
+
+                                    : null
+
+                                }
                                 <div>
                                     <h3 className="my-3">Last epsiode to air</h3>
                                     <div className={utils.singleMovieAdditionInfo}>
@@ -74,18 +114,6 @@ const TVData = ({ movie, recommendation, credits, params }) => {
                                         <div>Episode number : <span>{movie.last_episode_to_air.episode_number}</span></div>
                                         <div>Season number : <span>{movie.last_episode_to_air.season_number}</span></div>
                                         <div>name : <span>{movie.last_episode_to_air.name}</span></div>
-
-                                    </div>
-
-                                </div>
-                                <div>
-                                    <h3 className="my-3">Next epsiode to air</h3>
-                                    <div className={utils.singleMovieAdditionInfo}>
-
-                                        <div>air date : <span>{movie.next_episode_to_air.air_date}</span></div>
-                                        <div>Episode number : <span>{movie.next_episode_to_air.episode_number}</span></div>
-                                        <div>Season number : <span>{movie.next_episode_to_air.season_number}</span></div>
-                                        <div>name : <span>{movie.next_episode_to_air.name}</span></div>
 
                                     </div>
 
@@ -104,7 +132,7 @@ const TVData = ({ movie, recommendation, credits, params }) => {
                             <div>
                                 <PreMovieLoader />
                             </div> :
-                            <MovieContainer array={credits.result} />
+                            <MovieContainer array={credits} />
                         }
                     </div>
                     <hr />
@@ -114,7 +142,7 @@ const TVData = ({ movie, recommendation, credits, params }) => {
                             <div>
                                 <PreMovieLoader />
                             </div> :
-                            <MovieContainer array={recommendation.result} />
+                            <MovieContainer array={recommendation} />
                         }
                     </div>
 
