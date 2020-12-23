@@ -13,7 +13,7 @@ Donmovie is a nextJS application integrated with **themovieDB** api and firebase
 
 ## PREVIEW
 
-[donmovies(https://donmovies.vercel.app/)
+[donmovies](https://donmovies.vercel.app/)
 
 ---
 
