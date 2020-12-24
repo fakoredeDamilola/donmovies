@@ -19,7 +19,7 @@ Donmovie is a nextJS application integrated with **themovieDB** api and firebase
 
 ## PROJECT PURPOSE AND GOAL
 
-Donmovies is my first official nextJS application. When I decided to learn nextJS, I decided to follow a different approach, and not read the documentation, but actually learn it by building. I fell into lot and lot of squish tiny and big bugs( honestly I can almost draw them for you. I am sure they know my name by now. They will be like **yo guys Dammy has fallen into our trap again :)**), but all this just made me more determined and I am happy to say I built something I am really proud of.
+Donmovies is my first official nextJS application. When I decided to learn nextJS, I decided to follow a different approach, and not read the documentation, but actually learn NextJS by building something. I am happy to say I built something I am really proud of.
 
 
 ---
