@@ -39,12 +39,12 @@ const TVVideoData = ({ video, params }) => {
 
             <div>
                 <MovieNavHeader params={params} clicked="2" type="tv" />
-                <div className={`${utils.movieVideoContainer} container`}>
+                <div className={`${utils.movieVideoContainer} container mt-4`}>
                     {video.map((video, index) => {
                         return (
-                            <div className={utils.movieVideo} key={index}>
+                            <div className={`${utils.movieVideo} mb-4`} key={index}>
 
-                                <iframe src={`https://www.youtube.com/embed/${video.key}`} frameBorder="0" width="400" height="400" className="my-3">No video available</iframe>
+                                <iframe src={`https://www.youtube.com/embed/${video.key}`} frameBorder="0" className="my-3">No video available</iframe>
                             </div>
                         )
                     })

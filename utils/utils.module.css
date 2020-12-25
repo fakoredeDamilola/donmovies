@@ -238,11 +238,6 @@
   border-bottom: 2px solid rgb(5, 60, 105);
 }
 
-/* videos */
-.movieVideoContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-}
 /* footer */
 .pageFooter {
   background: rgb(36, 35, 35);
@@ -286,6 +281,14 @@
 }
 
 /* media queries */
+
+@media (min-width: 500px) {
+  /* videos */
+  .movieVideoContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  }
+}
 @media (max-width: 500px) {
   .singleMovieAdditionInfo div {
     width: 100%;

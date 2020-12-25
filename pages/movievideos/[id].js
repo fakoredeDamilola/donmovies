@@ -67,12 +67,12 @@ const MovieVideoData = ({ video, params }) => {
             <div>
                 <MovieNavHeader params={params} clicked="2" type="movie" />
                 <div className="container py-5">
-                    <div className={`${utils.movieVideoContainer} container`}>
+                    <div className={`${utils.movieVideoContainer} container mt-4`}>
                         {video.map((video, index) => {
                             return (
-                                <div className={utils.movieVideo} key={index}>
+                                <div className={`${utils.movieVideo} mb-4`} key={index}>
 
-                                    <iframe src={`https://www.youtube.com/embed/${video.key}`} frameBorder="0" width="400" height="400">No video available</iframe>
+                                    <iframe src={`https://www.youtube.com/embed/${video.key}`} frameBorder="0">No video available</iframe>
                                 </div>
                             )
                         })
