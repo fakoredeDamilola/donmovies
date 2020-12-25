@@ -1,9 +1,13 @@
 import Movie from "../components/Movie"
+import { useEffect } from "react"
+const MovieContainer = ({ array }) => {
 
-const MovieContainer = ({ array, page }) => {
-
+    useEffect(() => {
+        let rally = document.querySelectorAll(".movieRail")
+        Array.from(rally).forEach(ral => ral.scrollLeft = 200)
+    }, [])
     return (
-        <div>
+        <div className="movieRail">
 
             {array.map((movie, index) => {
                 return (

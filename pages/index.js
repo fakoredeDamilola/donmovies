@@ -3,8 +3,8 @@ import Footer from "../components/Footer"
 import MovieContainer from "../components/MovieContainer"
 import PreMovieLoader from "../components/PreMovieLoader"
 import utils from "../utils/utils.module.css"
-import { getAllMovieData } from "../api/getData"
-import { useState } from 'react'
+// import { getAllMovieData } from "../api/getData"
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 const Index = ({
   mostPopular,
@@ -40,8 +40,6 @@ const Index = ({
     }
 
   }
-
-
 
   return (
     <Layout>

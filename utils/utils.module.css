@@ -94,6 +94,9 @@
   margin: 30px;
   cursor: pointer;
 }
+.loaderMovieContainer {
+  background: rgb(216, 216, 216);
+}
 .movieImage {
   width: 100%;
   overflow: hidden;
@@ -101,7 +104,7 @@
 .loaderMovieImage {
   width: 100%;
   height: 390px;
-  animation: glitchImage 3s ease-in infinite;
+  animation: glitch 3s ease-in infinite;
 }
 .movieImage img,
 .loaderMovieImage img {
@@ -113,6 +116,13 @@
 .loaderMovieImage img:hover {
   transform: scale(1.1);
   border-radius: 20px;
+}
+.loaderMovieName,
+.loaderMovieDescription {
+  background: rgb(177, 173, 173);
+  width: 80%;
+  min-width: 80%;
+  animation: glitch 3s ease-in infinite;
 }
 .movieInfo {
   padding: 7px;
@@ -138,22 +148,23 @@
   border-radius: 10px;
   margin: 8px 0;
 }
-.loaderMovieInfo div:last-child {
-  width: 0%;
-}
 
 /* scrollbar */
 
-@keyframes glitchImage {
+@keyframes glitch {
   from {
     background: linear-gradient(
-      to bottom right,
-      rgb(81, 81, 82),
-      rgb(36, 35, 35)
+      to right,
+      rgb(158, 158, 161),
+      rgb(138, 138, 138)
     );
   }
   to {
-    background: linear-gradient(to top left, rgb(36, 35, 35), rgb(43, 43, 44));
+    background: linear-gradient(
+      to top left,
+      rgb(153, 152, 152),
+      rgb(163, 163, 165)
+    );
   }
 }
 /* single image */

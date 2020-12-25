@@ -3,7 +3,7 @@ import utils from "../../utils/utils.module.css"
 import MovieContainer from "../../components/MovieContainer"
 import Footer from "../../components/Footer"
 import { useState } from 'react'
-import { getWholePageData } from "../../api/getData"
+// import { getWholePageData } from "../../api/getData"
 import PreMovieLoader from "../../components/PreMovieLoader"
 
 const categoryData = ({ movie, url, category }) => {
@@ -13,11 +13,11 @@ const categoryData = ({ movie, url, category }) => {
 
         number += 1
         setNumber(number)
-        let data = await getWholePageData(category, number)
-        // let data = await fetch(`https://api.themoviedb.org/3/movie/${category}?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=${number}`)
-        // const res = await data.json()
-        // let result = res.results
-        let result = data.result
+        // let data = await getWholePageData(category, number)
+        let data = await fetch(`https://api.themoviedb.org/3/movie/${category}?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=${number}`)
+        const res = await data.json()
+        let result = res.results
+
         setMovieData(result)
 
 
@@ -26,11 +26,10 @@ const categoryData = ({ movie, url, category }) => {
         if (number > 1) {
             number -= 1
             setNumber(number)
-            let data = await getWholePageData(category, number)
-            // let data = await fetch(`https://api.themoviedb.org/3/movie/${category}?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=${number}`)
-            // const res = await data.json()
-            // let result = res.results
-            let result = data.result
+            // let data = await getWholePageData(category, number)
+            let data = await fetch(`https://api.themoviedb.org/3/movie/${category}?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=${number}`)
+            const res = await data.json()
+            let result = res.results
             setMovieData(result)
         } else return
 
@@ -82,11 +81,10 @@ export const getStaticPaths = () => {
     }
 }
 export const getStaticProps = async ({ params }) => {
-    let data = await getWholePageData(params.category, 1)
-    // let data = await fetch(`https://api.themoviedb.org/3/movie/${params.category}?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=1`)
-    // const res = await data.json()
-    // let result = res.results
-    let result = data.result
+    // let data = await getWholePageData(params.category, 1)
+    let data = await fetch(`https://api.themoviedb.org/3/movie/${params.category}?api_key=a6274c5c4a9c16954e5a86efccdd0bef&language=en-US&page=1`)
+    const res = await data.json()
+    let result = res.results
     let random = Math.round(Math.random() * 20)
     let url = result[random].backdrop_path
     return {
